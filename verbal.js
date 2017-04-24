@@ -5,6 +5,13 @@ var fastBreathInc = 0.6
 var slowTimeBetweenBlinks = 4000
 var fastTimeBetweenBlinks = 500
 
+var u = new SpeechSynthesisUtterance();
+u.lang = 'en-US';
+u.volume = 1.0; 
+u.pitch = 1.75;
+u.rate = 1.0;
+u.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == "Google UK English Male"; })[0];
+
 function startDictation() {
 
   if (window.hasOwnProperty('webkitSpeechRecognition')) {
@@ -22,7 +29,6 @@ function startDictation() {
 
     recognition.lang = "en-US";
     recognition.start();
-
 
     recognition.onresult = function(e) {
       document.getElementById('transcript').value
@@ -61,7 +67,7 @@ function decide_response(user_said) {
         user_said. toLowerCase().includes("hey") ||
         user_said. toLowerCase().includes("hello") ||
         user_said. toLowerCase().includes("what's up")) {
-      response = "hi, I am punch punch. How do you feel today?";
+      response = "hi, I am Soft Vilius. How do you feel today?";
       state = "before_emotion";
     } else if(is_happy_mood(user_said)) {
       response = "That's great! Nice to hear!";
@@ -81,15 +87,7 @@ function decide_response(user_said) {
     } else if (is_angry_mood(user_said)){
       response = "what's wrong? tell me and i can help you relieve your stress.";
       state = "angry_mood_waiting";
-    } else if (user_said.toLowerCase().includes("punch") && (state == "ready_to_punch" || state == "punch_talking")) {
-      var possible_responses = ["Ouch! Feel better? Keep punching!",
-                                "Ouch! punch me as hard as you can.",
-                                "Oh. Come on. Harder!",
-                                "See the light? Your stress almost gone!"];
-      var choice = Math.floor(Math.random() * possible_responses.length);
-      response = possible_responses[choice];
-      state = "punch_talking";
-    }else if (user_said.toLowerCase().includes("bye") && state == "punch_talking"){
+    } else if (user_said.toLowerCase().includes("bye") && state == "ready_to_punch"){
       response = "congratulations. i hope this punching exercise worked. don't forget to exercise to relieve your stress. i wish you a great day! bye!";
       state = "initial";
     } else if(user_said.toLowerCase().includes("bye")){
@@ -144,16 +142,16 @@ function is_angry_mood(user_said) {
  */
 function speak(text, callback) {
 
-  /* Nonverbal actions at the start of robot's speaking */
-  setBreathInc(fastBreathInc); 
-
   var u = new SpeechSynthesisUtterance();
   u.text = text;
   u.lang = 'en-US';
-  u.volume = 0.5; 
-  u.pitch = 1.5;
+  u.volume = 1.0; 
+  u.pitch = 1.6;
   u.rate = 1.0;
-  u.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == "Samantha"; })[0];
+  u.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == "Google UK English Male"; })[0];
+
+  /* Nonverbal actions at the start of robot's speaking */
+  setBreathInc(fastBreathInc); 
 
   u.onend = function () {
       
