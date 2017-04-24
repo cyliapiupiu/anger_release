@@ -62,6 +62,7 @@ void loop() {
 
   // if the sensor reading is greater than the threshold:
   if (sensorReading >= threshold) {
+    // After 70 hits, the bot will tell the user that he / she is done.
     if(overall <= 350) {
       Serial.println("{\"punched\": \"yes\"}");
     } else {
