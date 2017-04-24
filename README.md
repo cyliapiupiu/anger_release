@@ -1,4 +1,4 @@
-# Punch Punch
+# Soft Vilius
 
 Readme for Mac OS X:
 
